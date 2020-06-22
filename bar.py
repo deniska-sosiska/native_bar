@@ -16,19 +16,41 @@ cards = 10
 
 
 
+with open('Катастрофы.txt') as file:
+    file.seek(0)
+    lines = 0
+    for i in file:
+        lines += 1
+    needCatastr = (random.randrange(1, lines, 2))
+    print(needCatastr)
+    file.seek(0)
+    for i in range(lines):
+        if i == (needCatastr-1):
+            print('Катастрофа: ', file.readline(), end = '')
+            print('Описание: ', file.readline())
+        file.readline()
 
-file = open('Катастрофы.txt')
-
-lines = 0
-for i in file:
-    lines += 1
 
 
-needCatastr = (random.randrange(1, lines, 2))
-print(needCatastr)
-
-# for catastrophe in file:
-#     if int(catastrophe) == needCatastr:
-#         print(catastrophe)
+# file.readline()
+# for line in file:
+#     print(line, end = '')
+#     # print('hi')
 
 file.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
