@@ -80,6 +80,30 @@ class Card():
             fileU.write(self.__humanQuality)
 
 
+def poisk(forAttribute):
+    # attribute = '1'
+    x = 0
+    for i in professionThatWas:
+        print('forAttribute:', forAttribute, end='')
+        print('i:', i, end='')
+        print('professionThatWas:',professionThatWas[0], end='\n')
+        x += 1
+        if  i == professionThatWas[0]:
+            print('from if:', x, end='\n\n')
+            attribute = forAttribute
+        else:
+            if i == forAttribute:
+                print('from elif:', x, '\n\n\n')
+                attribute = '123'
+                # break
+            else:
+                print('from else:', x, end='\n\n')
+                attribute = forAttribute
+                exitFromCreateAtribute = False
+                break
+
+    return attribute
+
 def get_info(nameFile):
     with open('files/' + nameFile + '.txt', 'r') as fileThatOpen:
         exitFromCreateAtribute = True
@@ -88,35 +112,45 @@ def get_info(nameFile):
             lines = 0
             for i in fileThatOpen:
                 lines += 1
-            needChar = (random.randint(1, lines))
+            needChar = (random.randint(1, lines - 1))
             fileThatOpen.seek(0)
             for i in range(lines):
                 if (i + 1 == needChar):
                     forAttribute = fileThatOpen.readline()
                     if (nameFile == 'Профессии'):
-                        print(forAttribute,end='')
                         professionThatWas.insert(0, forAttribute)
-                        # professionThatWas.append(0)
-                        x = 0
-                        for i in professionThatWas:
-                            x += 1
-                            if x == 1:
-                                continue
-                            else:
-                                if i  == forAttribute:
-                                    professionThatWas.pop(0)
-                                    # break
-                                else:
-                                    attribute = forAttribute
-                                    exitFromCreateAtribute = False
-
-                            # input(professionThatWas)
-
+                        attribute = poisk(forAttribute)
                     else:
                         attribute = forAttribute
                         exitFromCreateAtribute = False
+                    break
 
                 fileThatOpen.readline()
+
+            if attribute == '123':
+                exitFromCreateAtribute = True
+            else:
+                exitFromCreateAtribute = False
+
+
+            #=====================================
+            # if (nameFile == 'Профессии'):
+            #     print(forAttribute,end='')
+            #     for i in professionThatWas:
+            #         if  i == professionThatWas[0]:
+            #             print('from if')
+            #         else:
+            #             if i == forAttribute:
+            #                 print('from                      elif')
+            #                 break
+            #             else:
+            #                 print('from     else')
+            #                 attribute = forAttribute
+            #                 exitFromCreateAtribute = False
+            #                 break
+            # else:
+            #     attribute = forAttribute
+            #     exitFromCreateAtribute = False
 
     return attribute
 
@@ -161,8 +195,7 @@ for user in range(users):
     #=====получаю чайлдфри
     forChildfree = random.randint(0, 4)
     if forChildfree == 4:
-        childfree = 'Чайлдфри'
-        biologicalCharacterization = [sex , age, childfree ]
+        biologicalCharacterization = [sex , age, 'Чайлдфри' ]
     else:
         biologicalCharacterization = [sex , age]
 
