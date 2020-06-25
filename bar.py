@@ -59,24 +59,29 @@ class Card():
 
     def output(self, numberUsers):
         with open('Карточки/' + numberUsers + '.txt', 'w') as fileU:
+            fileU.write('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Катастрофа~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
+            fileU.write('                                            ')
             fileU.write(nameCatastrophe)
+            fileU.write('        ')
             fileU.write(descriptionCatastrophe)
             fileU.write("\n\n")
-            fileU.write('Профессия:                     ')
+            fileU.write('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Характеристики~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
+            fileU.write('                   Профессия:                     ')
             fileU.write(self.__profession)
-            fileU.write('Здоровье:                      ')
+            fileU.write('                   Здоровье:                      ')
             fileU.write(self.__health)
-            fileU.write('Биологическая характерист-ка:  ')
+            fileU.write('                   Биологическая характерист-ка:  ')
             fileU.write(str(self.__biologicalCharacterization))
             fileU.write('\n')
-            fileU.write('Багаж:                         ')
+            fileU.write('                   Багаж:                         ')
             fileU.write(self.__baggage)
-            fileU.write('Хобби:                         ')
+            fileU.write('                   Хобби:                         ')
             fileU.write(self.__hobby)
-            fileU.write('Фобии:                         ')
+            fileU.write('                   Фобии:                         ')
             fileU.write(self.__phobias)
-            fileU.write('Качество человека:             ')
+            fileU.write('                   Качество человека:             ')
             fileU.write(self.__humanQuality)
+            fileU.write('\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Доп. характеристики~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
 
 
 
@@ -174,6 +179,8 @@ for user in range(users):
     card.output('user' + str(user + 1))
 
 
-input('Успешно!')
+print('================================================================================\n\n\n\n\n\n\n\n')
+print('                                    Успешно!                                    \n\n\n\n\n\n\n\n')
+print('================================================================================')
 
 #
