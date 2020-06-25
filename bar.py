@@ -2,7 +2,7 @@ import random
 
 users = 10
 # users = int(input("Сколько человек будет играть?: "))
-professionThatWas = []
+professionThatWas = ['none\n']
 healthThatWas = []
 baggageThatWas = []
 hobbyThatWas = []
@@ -80,29 +80,29 @@ class Card():
             fileU.write(self.__humanQuality)
 
 
-def poisk(forAttribute):
-    # attribute = '1'
-    x = 0
-    for i in professionThatWas:
-        print('forAttribute:', forAttribute, end='')
-        print('i:', i, end='')
-        print('professionThatWas:',professionThatWas[0], end='\n')
-        x += 1
-        if  i == professionThatWas[0]:
-            print('from if:', x, end='\n\n')
-            attribute = forAttribute
-        else:
-            if i == forAttribute:
-                print('from elif:', x, '\n\n\n')
-                attribute = '123'
-                # break
-            else:
-                print('from else:', x, end='\n\n')
-                attribute = forAttribute
-                exitFromCreateAtribute = False
-                break
-
-    return attribute
+# def poisk(forAttribute):
+#     # attribute = '1'
+#     x = 0
+#     for i in professionThatWas:
+#         print('forAttribute:', forAttribute, end='')
+#         print('i:', i, end='')
+#         print('professionThatWas:',professionThatWas[0], end='\n')
+#         x += 1
+#         if  i == professionThatWas[0]:
+#             print('from if:', x, end='\n\n')
+#             attribute = forAttribute
+#         else:
+#             if i == forAttribute:
+#                 print('from elif:', x, '\n\n\n')
+#                 attribute = '123'
+#                 # break
+#             else:
+#                 print('from else:', x, end='\n\n')
+#                 attribute = forAttribute
+#                 exitFromCreateAtribute = False
+#                 break
+#
+#     return attribute
 
 def get_info(nameFile):
     with open('files/' + nameFile + '.txt', 'r') as fileThatOpen:
@@ -119,38 +119,50 @@ def get_info(nameFile):
                     forAttribute = fileThatOpen.readline()
                     if (nameFile == 'Профессии'):
                         professionThatWas.insert(0, forAttribute)
-                        attribute = poisk(forAttribute)
-                    else:
-                        attribute = forAttribute
-                        exitFromCreateAtribute = False
+                        # attribute = poisk(forAttribute)
+                    # else:
+                        # attribute = forAttribute
+                        # exitFromCreateAtribute = False
                     break
 
                 fileThatOpen.readline()
 
-            if attribute == '123':
-                exitFromCreateAtribute = True
-            else:
-                exitFromCreateAtribute = False
+            # if attribute == '123':
+            #     exitFromCreateAtribute = True
+            # else:
+            #     exitFromCreateAtribute = False
 
 
             #=====================================
-            # if (nameFile == 'Профессии'):
-            #     print(forAttribute,end='')
-            #     for i in professionThatWas:
-            #         if  i == professionThatWas[0]:
-            #             print('from if')
-            #         else:
-            #             if i == forAttribute:
-            #                 print('from                      elif')
-            #                 break
-            #             else:
-            #                 print('from     else')
-            #                 attribute = forAttribute
-            #                 exitFromCreateAtribute = False
-            #                 break
-            # else:
-            #     attribute = forAttribute
-            #     exitFromCreateAtribute = False
+            if (nameFile == 'Профессии'):
+                print("То что проверяю: ", forAttribute)
+                x  = range(len(professionThatWas))
+                # print(x)
+                for i in x:
+                    print("профессия итерация: ", i, '-', professionThatWas[i])
+                    if i == 0:
+                        print('from if')
+                        continue
+                    else:
+                        # print(forAttribute, ' : ', professionThatWas[i])
+                        if (forAttribute == professionThatWas[i]+'\n') or (forAttribute == professionThatWas[i]):
+                            print('from elif')
+                            professionThatWas.pop(0)
+                            exitFromCreateAtribute = True
+
+                            break
+                        else:
+                            print('from else')
+
+                            attribute = forAttribute
+                            exitFromCreateAtribute = False
+                            # break
+                print('\n\n\n')
+
+
+            else:
+                attribute = forAttribute
+                exitFromCreateAtribute = False
 
     return attribute
 
