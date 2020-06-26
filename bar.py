@@ -2,12 +2,14 @@ import random
 
 users = 10
 # users = int(input("Сколько человек будет играть?: "))
+
 professionThatWas = ['none\n']
 healthThatWas = ['none\n']
 baggageThatWas = ['none\n']
 hobbyThatWas = ['none\n']
 phobiasThatWas = ['none\n']
 humanQualityThatWas = ['none\n']
+additionalInfoThatWas = ['none\n']
 
 #===================Создание катастрофы======================================
 def catastrophe():
@@ -19,7 +21,6 @@ def catastrophe():
             for i in fileThatOpen:
                 lines += 1
             needCatastr = (random.randrange(1, lines, 2))
-            # print(needCatastr)
             fileThatOpen.seek(0)
             fileThatChecking = open('Карточки/!Катастрофа.txt', 'r+')
             catastropheThatWas = (fileThatChecking.readline())
@@ -41,14 +42,11 @@ def catastrophe():
     return nameCatastrophe, descriptionCatastrophe
 
 
-
 # допол карты навыков
 # спец условия
 
 class Card():
-
-    def __init__(self, profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, nameCatastrophe, descriptionCatastrophe):
-        # self.profession = get_info("Профессии.txt")
+    def __init__(self, profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, nameCatastrophe, descriptionCatastrophe):
         self.__profession = profession
         self.__health = health
         self.__biologicalCharacterization = biologicalCharacterization
@@ -56,9 +54,10 @@ class Card():
         self.__hobby = hobby
         self.__phobias = phobias
         self.__humanQuality = humanQuality
+        self.__additionalInfo = additionalInfo
 
     def output(self, numberUsers):
-        with open('Карточки/' + numberUsers + '.txt', 'w') as fileU:
+        with open('Карточки/' + numberUsers + '.txt', 'w') as fileU: #file users
             fileU.write('\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Катастрофа~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
             fileU.write('                                            ')
             fileU.write(nameCatastrophe)
@@ -81,13 +80,17 @@ class Card():
             fileU.write(self.__phobias)
             fileU.write('                   Качество человека:             ')
             fileU.write(self.__humanQuality)
-            fileU.write('\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Доп. характеристики~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n')
-
+            if self.__additionalInfo == 'none':
+                x = 0
+            else:
+                fileU.write('\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Доп. характеристики~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
+                fileU.write('                   Дополнительная информация:     ')
+                fileU.write(self.__additionalInfo)
 
 
 def nonRepeat(forAttribute, array):
-    x  = range(len(array))
-    for i in x:
+    rangeArray  = range(len(array))
+    for i in rangeArray:
         if i == 0:
             attribute = 'Not this!!!'
             continue
@@ -134,6 +137,9 @@ def get_info(nameFile):
                     elif (nameFile == 'Качество человека'):
                         humanQualityThatWas.insert(0, forAttribute)
                         attribute, exitFromCreateAtribute = nonRepeat(forAttribute, humanQualityThatWas)
+                    elif (nameFile == 'Дополнительная информация'):
+                        additionalInfoThatWas.insert(0, forAttribute)
+                        attribute, exitFromCreateAtribute = nonRepeat(forAttribute, additionalInfoThatWas)
                     break
 
                 fileThatOpen.readline()
@@ -159,11 +165,11 @@ for user in range(users):
     else:
         phobias = get_info('Фобии')
     humanQuality = get_info('Качество человека')
-    forSex = random.randint(0, 1)
+    forSex = random.randint(0, 2)
     if forSex == 1:
-        sex = 'Мужчина'
-    else:
         sex = 'Женщина'
+    else:
+        sex = 'Мужчина'
     #=====получаю возраст
     age = random.randint(18, 63)
     #=====получаю чайлдфри
@@ -172,14 +178,20 @@ for user in range(users):
         biologicalCharacterization = [sex , age, 'Чайлдфри' ]
     else:
         biologicalCharacterization = [sex , age]
+    #=====получаю допю информацию
+    forAdd = random.randint(0, 3)
+    if forAdd == 2:
+        additionalInfo = get_info('Дополнительная информация')
+    else:
+        additionalInfo = 'none'
 
 
-    card = Card(profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, nameCatastrophe, descriptionCatastrophe)
+    card = Card(profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, nameCatastrophe, descriptionCatastrophe)
     card.output('user' + str(user + 1))
 
 
 print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n\n\n\n\n\n')
 print('                                    Успешно!                                      \n\n\n\n\n\n\n\n')
-print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+input('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
-#
+#end
