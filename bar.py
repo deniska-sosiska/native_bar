@@ -10,6 +10,7 @@ hobbyThatWas = ['none\n']
 phobiasThatWas = ['none\n']
 humanQualityThatWas = ['none\n']
 additionalInfoThatWas = ['none\n']
+actionThatWas = ['none\n']
 
 #===================Создание катастрофы======================================
 def catastrophe():
@@ -46,7 +47,7 @@ def catastrophe():
 # спец условия
 
 class Card():
-    def __init__(self, profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, nameCatastrophe, descriptionCatastrophe):
+    def __init__(self, profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, action, nameCatastrophe, descriptionCatastrophe):
         self.__profession = profession
         self.__health = health
         self.__biologicalCharacterization = biologicalCharacterization
@@ -55,6 +56,7 @@ class Card():
         self.__phobias = phobias
         self.__humanQuality = humanQuality
         self.__additionalInfo = additionalInfo
+        self.__action = action
 
     def output(self, numberUsers):
         with open('Карточки/' + numberUsers + '.txt', 'w') as fileU: #file users
@@ -81,11 +83,17 @@ class Card():
             fileU.write('                   Качество человека:             ')
             fileU.write(self.__humanQuality)
             if self.__additionalInfo == 'none':
-                x = 0
+                pass
             else:
                 fileU.write('\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Доп. характеристики~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
                 fileU.write('                   Дополнительная информация:     ')
                 fileU.write(self.__additionalInfo)
+            if self.__action == 'none':
+                pass
+            else:
+                fileU.write('\n\n\n\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Cпециальные условия(меняет ход игры)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n')
+                fileU.write('                   Карта действия:             ')
+                fileU.write(self.__action)
 
 
 def nonRepeat(forAttribute, array):
@@ -140,6 +148,9 @@ def get_info(nameFile):
                     elif (nameFile == 'Дополнительная информация'):
                         additionalInfoThatWas.insert(0, forAttribute)
                         attribute, exitFromCreateAtribute = nonRepeat(forAttribute, additionalInfoThatWas)
+                    elif (nameFile == 'Карты действия'):
+                        actionThatWas.insert(0, forAttribute)
+                        attribute, exitFromCreateAtribute = nonRepeat(forAttribute, actionThatWas)
                     break
 
                 fileThatOpen.readline()
@@ -184,9 +195,15 @@ for user in range(users):
         additionalInfo = get_info('Дополнительная информация')
     else:
         additionalInfo = 'none'
+    #=====получаю карту действия
+    forAction = random.randint(0, 3)
+    if forAction == 3:
+        action = get_info('Карты действия')
+    else:
+        action = 'none'
 
 
-    card = Card(profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, nameCatastrophe, descriptionCatastrophe)
+    card = Card(profession, health, biologicalCharacterization, baggage, hobby, phobias, humanQuality, additionalInfo, action, nameCatastrophe, descriptionCatastrophe)
     card.output('user' + str(user + 1))
 
 
